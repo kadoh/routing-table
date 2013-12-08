@@ -3,12 +3,13 @@ var chai = require('chai'),
 
 describe('Routing Table', function() {
 
-  var RoutingTable = require('../lib/dht/routing-table'),
-      Peer = require('../lib/dht/peer'),
-      globals = require('../lib/globals'),
-      crypto = require('../lib/util/crypto'),
+  var RoutingTable = require('../lib/routing-table'),
+      Peer = require('../lib/peer'),
+      crypto = require('../lib/crypto'),
       randomSHA1 = crypto.digest.randomSHA1,
-      SHA1 = crypto.digest.SHA1;
+      SHA1 = crypto.digest.SHA1,
+      B = 160,
+      K = 8;
 
   var address = 'foo@bar', id = randomSHA1(),
       rt;
@@ -31,7 +32,7 @@ describe('Routing Table', function() {
       expect(rt.howManyKBuckets()).to.equal(1);
       var kbucket = rt.getKBuckets()[0];
       expect(kbucket.getRange().min).to.equal(0);
-      expect(kbucket.getRange().max).to.equal(globals.B);
+      expect(kbucket.getRange().max).to.equal(B);
     });
     
     it('should be possible to add a new peer and to retrieve it', function() {
@@ -47,16 +48,16 @@ describe('Routing Table', function() {
     describe('when I a add more than K elements to it', function() {
       
       it('should split when entering random peers', function() {
-         for (var i = 0; i < globals.K +1; i++) {
+         for (var i = 0; i < K +1; i++) {
           rt.addPeer(new Peer('127.0.0.1:' + (1025 + i), SHA1('127.0.0.1:' + (1025 + i))));
         }
         expect(rt.howManyKBuckets()).to.equal(2);
       });
 
       it('should update a full the kbucket', function() {
-        for (var i = 0; i < globals.K + 1; i++) {
+        for (var i = 0; i < K + 1; i++) {
           rt.addPeer(
-            new Peer('127.0.0.1:' + (1025 + i), randomSHA1(id, globals.B-1))
+            new Peer('127.0.0.1:' + (1025 + i), randomSHA1(id, B-1))
           );
         }
         var kb = rt.getKBuckets()[1];
@@ -68,9 +69,9 @@ describe('Routing Table', function() {
     describe('with a complete routing table', function() {
       
       beforeEach(function() {
-        for (var i = 0; i < KadOH.globals.B - 120; i++) {
-          for (var j = 0; j < KadOH.globals.K; j++) {
-            rt.addPeer(new Peer(i+':'+j, randomSHA1(id, globals.B-i)));
+        for (var i = 0; i < B - 120; i++) {
+          for (var j = 0; j < K; j++) {
+            rt.addPeer(new Peer(i+':'+j, randomSHA1(id, B-i)));
           }
         }
       });
