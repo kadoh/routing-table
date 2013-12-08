@@ -1,6 +1,6 @@
 {
   "name": "kadoh-routing-table",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Kademlia routing table implementation extracted from KadOH",
   "main": "index.js",
   "author": "",
