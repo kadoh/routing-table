@@ -5,23 +5,23 @@ describe('Peer', function() {
   var Peer,
    ip = '234.5.78.4:1234',
    id = 'adb3bf3007abe686cf742851fe561bd1890b6295';
-  
+
   beforeEach(function() {
-    Peer = require('../lib/dht/peer');
+    Peer = require('../lib/peer');
   });
 
   it('should be there', function() {
     Peer.should.be.ok;
     Peer.should.be.a('function');
   });
-  
+
   describe('When I instantiate a new Peer', function() {
     var peer;
 
     beforeEach(function() {
       peer = new Peer(ip, id);
     });
-    
+
     it('should respond to `getAddress()` and `getID()`', function() {
       peer.getAddress.should.be.a('function');
       peer.getID.should.be.a('function');
@@ -36,7 +36,7 @@ describe('Peer', function() {
     });
 
   });
-  
+
   it('should be possible to instanciate a peer using a triple', function() {
     var peer1 = new Peer(['127.0.0.1:1234', id]);
     var peer2 = new Peer('127.0.0.1:1234', id);
@@ -51,7 +51,7 @@ describe('Peer', function() {
     var peer1 = new Peer(['127.0.0.1:1234', id1]);
     var peer2 = new Peer('127.0.0.1:1234', id1);
     var peer3 = new Peer(['127.0.0.1:1235', id2]);
-    
+
     expect(peer1.equals(peer2)).to.be.true;
     expect(peer1.equals(peer3)).to.be.false;
   });
@@ -62,5 +62,5 @@ describe('Peer', function() {
     };
     expect(test).to.throw(Error);
   });
-  
+
 });
