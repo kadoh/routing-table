@@ -1,0 +1,11 @@
+{
+  "name": "kadoh-routing-table",
+  "version": "0.0.0",
+  "description": "Kademlia routing table implementation extracted from KadOH",
+  "main": "index.js",
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "chai": "~1.8.1"
+  }
+}
