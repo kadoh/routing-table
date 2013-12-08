@@ -29,7 +29,7 @@ table.addPeer(peer);
 peer.touch();
 
 // to get the number of Kbuckets
-howManyKBuckets.howManyKBuckets();
+table.howManyKBuckets();
 
 // get 3 closest peers to the given id:
 // return a PeerArray
@@ -51,7 +51,7 @@ table.stop();
 ### Todo
 - extract iterative lookup arlgorithm implementations: [IterativeFindNode](https://github.com/jinroh/kadoh/blob/master/lib/node.js#L407-L459) and [IterativeFindValue](https://github.com/jinroh/kadoh/blob/master/lib/node.js#L461-L521) based on [eventually](https://github.com/kadoh/eventually)
 - externalize "crypto" stuff: distance, ..
-- rename `PeerArray` into `PeerCollection` and add lodash magic (a la BackoneCollection)
-- refactor implemnetaion to be lighter
+- rename `PeerArray` into `PeerCollection` and add *lodash* magic (a la Backbone Collection)
+- refactor implementaion to be light
 - use/learn from https://github.com/tristanls/k-bucket
 - other features?
